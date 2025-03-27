@@ -1,0 +1,43 @@
+openapi: 3.0.0
+info:
+  title: API Aides-Territoires
+  version: 1.0.0
+  description: >
+    Cette API permet de rechercher des aides publiques disponibles selon un territoire,
+    une thématique et un public cible.
+
+servers:
+  - url: https://aides-territoires.beta.gouv.fr/api
+
+paths:
+  /aides/:
+    get:
+      summary: Recherche d’aides publiques
+      parameters:
+        - name: perimeter
+          in: query
+          description: Zone géographique (ex: Marseille)
+          required: true
+          schema:
+            type: string
+        - name: themes
+          in: query
+          description: Thématique de l’aide (ex: insertion, culture, numérique)
+          required: false
+          schema:
+            type: string
+        - name: targeted_audiences
+          in: query
+          description: Public visé (ex: associations, collectivites)
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 5
+      responses:
+        '200':
+          description: Liste des aides disponibles
